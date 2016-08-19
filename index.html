@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>AJAX Call</title>
+    <link rel="stylesheet" href="custom.css">
+    <!--<script src="server.json"></script>-->
+    <script src="ajax.js"></script>
+    <script>
+        var counter = 0;
+        function count(){
+            document.getElementById("sp").innerHTML=counter;
+            counter++;
+        }
+        function ajax(){
+            document.getElementById("showloader").style.display="block";
+            var promise=doAjax("GET","server.json",null);
+            promise.then(success,fail);
+            function success(data){
+                //alert("Hello !");
+                document.getElementById("showloader").style.display="none";
+                var obj=JSON.parse(data);
+                document.getElementById("h").innerHTML=obj.results[0].artistName+" "+obj.results[0].artistViewUrl+" "+obj.results[0].collectionName+" "+obj.results[0].collectionViewUrl+" "+obj.results[0].trackName+" "+obj.results[0].trackViewUrl+" "+"<audio src='"+obj.results[0].previewUrl+"'>";
+            }
+            function fail(err){
+                alert(err);
+            }
+            console.log("Hello !");
+        }
+    </script>
+</head>
+
+<body>
+   <div id="showloader">
+       <img src="loading.gif" alt="">
+   </div>
+    <h1>AJAX Call</h1>
+    <button onclick="count()">Counter</button>
+    <br>
+    <br>
+    <button onclick="ajax()">Get Ajax</button>
+    <h3>Count is : <span id="sp"></span></h3>
+    <h3 id="h"></h3>
+</body>
+
+</html>
