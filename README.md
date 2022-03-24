@@ -1,2 +1,3 @@
-# AJAX-Call
+# ajax-call
+
 Javascript Ajax Call
